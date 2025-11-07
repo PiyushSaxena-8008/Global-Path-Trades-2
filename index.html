@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth scroll-pt-20">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-g" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Global Path Trades | Import-Export Traders in India</title>
@@ -9,25 +9,103 @@
     <meta name="keywords" content="import export traders India, Nagpur export company, Global Path Trades India, commodity trading India, global sourcing, logistics support" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      /* Initial state for elements to be animated */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      /* Final state for animated elements */
+      .animate-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* New fade-in animation for 'About Us' section */
+      .animate-fade-in {
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+      }
+      .animate-fade-in.is-visible {
+        opacity: 1;
+      }
+
+      /* Staggered animation delays */
+      .animate-delay-100 { transition-delay: 100ms; }
+      .animate-delay-200 { transition-delay: 200ms; }
+      .animate-delay-300 { transition-delay: 300ms; }
+      .animate-delay-400 { transition-delay: 400ms; }
+
+      /* Hero Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero-title {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      .hero-subtitle {
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.3s forwards;
+      }
+      .hero-buttons {
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.6s forwards;
+      }
+      @keyframes kenBurns {
+        0% {
+          transform: scale(1.05) translate(0, 0);
+        }
+        100% {
+          transform: scale(1.05) translate(-2%, 2%);
+        }
+      }
+      .hero-bg-image {
+         animation: kenBurns 30s ease-in-out infinite alternate;
+      }
+
+      /* Modal Styles */
+      #trade-modal.is-open {
+        display: flex;
+      }
+      #trade-modal.is-open #trade-modal-content {
+        transform: scale(1);
+        opacity: 1;
+      }
+      #thank-you-section {
+        position: relative;
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body class="bg-white text-gray-800 font-sans">
     <header id="header" class="fixed w-full z-20 top-0 left-0 transition-all duration-300 text-white bg-black/30 backdrop-blur-md">
         <nav class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#home" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap">Global Path Trades</span>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap transition-colors duration-300">Global Path Trades</span>
             </a>
             <div id="header-right-group" class="flex md:order-2 items-center">
                 <!-- Social Icons -->
                 <div class="hidden md:flex items-center">
-                    <div id="header-partition" class="h-6 w-px bg-gray-400/50 ml-6 mr-6"></div>
-                    <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="header-social-link hover:text-blue-300 transition-colors text-xl">
+                    <div id="header-partition" class="h-6 w-px bg-gray-400/50 ml-6 mr-6 transition-colors duration-300"></div>
+                    <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="header-social-link hover:text-blue-300 transition-colors duration-300 text-xl">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="header-social-link hover:text-blue-300 transition-colors text-xl ml-4">
+                    <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="header-social-link hover:text-blue-300 transition-colors duration-300 text-xl ml-4">
                         <i class="fab fa-linkedin"></i>
                     </a>
+                    <a href="tel:+919579196451" aria-label="Call Us" class="header-social-link hover:text-blue-300 transition-colors duration-300 text-xl ml-4">
+                        <i class="fas fa-phone"></i>
+                    </a>
                 </div>
-                <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50" aria-controls="navbar-sticky" aria-expanded="false">
+                <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300" aria-controls="navbar-sticky" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
@@ -50,6 +128,9 @@
                             <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-blue-300 transition-colors text-2xl">
                                 <i class="fab fa-linkedin"></i>
                             </a>
+                            <a href="tel:+919579196451" aria-label="Call Us" class="hover:text-blue-300 transition-colors text-2xl">
+                                <i class="fas fa-phone"></i>
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -58,42 +139,41 @@
     </header>
 
     <main>
-        <section id="home" class="relative h-screen flex items-center justify-center text-white">
-            <div class="absolute inset-0 bg-black opacity-50"></div>
-            <img src="https://picsum.photos/seed/trade/1920/1080" alt="Global trade and logistics" class="absolute inset-0 w-full h-full object-cover"/>
+        <section id="home" class="relative h-screen flex items-center justify-center text-white overflow-hidden">
+            <div class="absolute inset-0 bg-black opacity-50 z-0"></div>
+            <img src="https://picsum.photos/seed/trade/1920/1080" alt="Global trade and logistics" class="absolute inset-0 w-full h-full object-cover hero-bg-image"/>
             <div class="relative z-10 text-center px-4">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Connecting India to the World</h1>
-                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">Global Path Trades is your trusted partner in import-export, bridging markets and creating opportunities with efficiency and transparency.</p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out text-lg">Request a Quote</a>
-                    <a href="#services" class="bg-white hover:bg-gray-200 text-blue-600 font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out text-lg">Our Services</a>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight hero-title">Connecting India to the World</h1>
+                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto hero-subtitle">Global Path Trades is your trusted partner in import-export, bridging markets and creating opportunities with efficiency and transparency.</p>
+                <div class="flex justify-center hero-buttons">
+                    <button id="trade-with-us-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out text-lg transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl">Trade With Us</button>
                 </div>
             </div>
         </section>
 
         <section id="about" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
+                <div class="text-center mb-16 animate-fade-in">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-800">About Global Path Trades</h2>
                     <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Your premier partner in navigating the complexities of international trade.</p>
                     <div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div>
+                    <div class="animate-fade-in">
                         <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Company Profile</h3>
                         <p class="text-gray-600 mb-4">Based in the logistical heart of India, Nagpur, Global Path Trades is a dynamic import-export company dedicated to facilitating seamless global trade. We specialize in a diverse range of commodities, connecting Indian suppliers with international markets and vice-versa. Our core values of trust, efficiency, and transparency guide every transaction.</p>
                         <div class="space-y-6">
-                            <div><h4 class="text-xl font-semibold text-blue-700 mb-2">Our Mission</h4><p class="text-gray-600">To be a reliable and efficient bridge for global trade, empowering businesses by providing superior sourcing, logistics, and trading services, while upholding the highest standards of integrity.</p></div>
-                            <div><h4 class="text-xl font-semibold text-blue-700 mb-2">Our Vision</h4><p class="text-gray-600">To become a globally recognized leader in the import-export sector, known for our innovative solutions, unwavering commitment to quality, and our role in fostering sustainable international business relationships.</p></div>
+                            <div class="animate-fade-in animate-delay-200"><h4 class="text-xl font-semibold text-blue-700 mb-2">Our Mission</h4><p class="text-gray-600">To be a reliable and efficient bridge for global trade, empowering businesses by providing superior sourcing, logistics, and trading services, while upholding the highest standards of integrity.</p></div>
+                            <div class="animate-fade-in animate-delay-300"><h4 class="text-xl font-semibold text-blue-700 mb-2">Our Vision</h4><p class="text-gray-600">To become a globally recognized leader in the import-export sector, known for our innovative solutions, unwavering commitment to quality, and our role in fostering sustainable international business relationships.</p></div>
                         </div>
                     </div>
-                    <div><img src="https://picsum.photos/seed/team/600/400" alt="Global Path Trades office" class="rounded-lg shadow-xl w-full" /></div>
+                    <div class="animate-fade-in animate-delay-100"><img src="https://picsum.photos/seed/team/600/400" alt="Global Path Trades office" class="rounded-lg shadow-xl w-full" /></div>
                 </div>
                 <div class="mt-20">
-                    <h3 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-12">Meet Our Leadership</h3>
+                    <h3 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-12 animate-fade-in">Meet Our Leadership</h3>
                     <div class="grid sm:grid-cols-2 gap-10 max-w-4xl mx-auto">
-                        <div class="bg-white p-8 rounded-lg shadow-lg text-center"><img src="https://picsum.photos/seed/ishan/200" alt="Ishan Shrivastava" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-200" /><h4 class="text-xl font-bold text-gray-800">Ishan Shrivastava</h4><p class="text-gray-500 mb-2">Co-Founder</p><p class="text-gray-600">With extensive experience in international market analysis and logistics, Ishan drives our strategic vision and operational excellence.</p></div>
-                        <div class="bg-white p-8 rounded-lg shadow-lg text-center"><img src="https://picsum.photos/seed/piyush/200" alt="Piyush Saxena" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-200" /><h4 class="text-xl font-bold text-gray-800">Piyush Saxena</h4><p class="text-gray-500 mb-2">Co-Founder</p><p class="text-gray-600">Piyush's expertise in supplier relations and quality assurance ensures we consistently deliver the best products to our clients worldwide.</p></div>
+                        <div class="bg-white p-8 rounded-lg shadow-lg text-center animate-fade-in"><img src="https://picsum.photos/seed/ishan/200" alt="Ishan Shrivastava" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-200" /><h4 class="text-xl font-bold text-gray-800">Ishan Shrivastava</h4><p class="text-gray-500 mb-2">Co-Founder</p><p class="text-gray-600">With extensive experience in international market analysis and logistics, Ishan drives our strategic vision and operational excellence.</p></div>
+                        <div class="bg-white p-8 rounded-lg shadow-lg text-center animate-fade-in animate-delay-200"><img src="https://picsum.photos/seed/piyush/200" alt="Piyush Saxena" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-200" /><h4 class="text-xl font-bold text-gray-800">Piyush Saxena</h4><p class="text-gray-500 mb-2">Co-Founder</p><p class="text-gray-600">Piyush's expertise in supplier relations and quality assurance ensures we consistently deliver the best products to our clients worldwide.</p></div>
                     </div>
                 </div>
             </div>
@@ -101,53 +181,52 @@
 
         <section id="products" class="py-20 bg-white">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">Our Products & Commodities</h2><p class="text-gray-600 mt-4 max-w-2xl mx-auto">We deal in a diverse range of products to meet the demands of the global market.</p><div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div></div>
+                <div class="text-center mb-16 animate-on-scroll"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">Our Products & Commodities</h2><p class="text-gray-600 mt-4 max-w-2xl mx-auto">We deal in a diverse range of products to meet the demands of the global market.</p><div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div></div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300"><img src="https://picsum.photos/seed/agri/400/300" alt="Agricultural products like grains and spices" class="w-full h-48 object-cover" /><div class="p-6"><h3 class="text-xl font-bold text-gray-800 mb-2">Agricultural Commodities</h3><p class="text-gray-600 text-sm">We trade a wide range of high-quality agricultural products including grains, spices, fruits, and vegetables sourced directly from Indian farms.</p></div></div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300"><img src="https://picsum.photos/seed/industrial/400/300" alt="Industrial raw materials" class="w-full h-48 object-cover" /><div class="p-6"><h3 class="text-xl font-bold text-gray-800 mb-2">Industrial Raw Materials</h3><p class="text-gray-600 text-sm">Our portfolio includes essential industrial raw materials such as minerals, metals, and chemicals for various manufacturing sectors.</p></div></div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300"><img src="https://picsum.photos/seed/textile/400/300" alt="Colorful textiles and fabrics" class="w-full h-48 object-cover" /><div class="p-6"><h3 class="text-xl font-bold text-gray-800 mb-2">Textiles & Garments</h3><p class="text-gray-600 text-sm">Sourcing and exporting premium quality textiles, fabrics, and ready-made garments from India’s leading manufacturing hubs.</p></div></div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300"><img src="https://picsum.photos/seed/handicraft/400/300" alt="Indian handicrafts" class="w-full h-48 object-cover" /><div class="p-6"><h3 class="text-xl font-bold text-gray-800 mb-2">Handicrafts & Decor</h3><p class="text-gray-600 text-sm">We export unique, handcrafted items that showcase the rich cultural heritage and artisanal skills of India.</p></div></div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll"><img src="https://picsum.photos/seed/agri/400/300" alt="Agricultural products like grains and spices" class="w-full h-48 object-cover" /><div class="p-6"><h3 class="text-xl font-bold text-gray-800 mb-2">Agricultural Commodities</h3><p class="text-gray-600 text-sm">We trade a wide range of high-quality agricultural products including grains, spices, fruits, and vegetables sourced directly from Indian farms.</p></div></div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll animate-delay-100"><img src="https://picsum.photos/seed/industrial/400/300" alt="Industrial raw materials" class="w-full h-48 object-cover" /><div class="p-6"><h3 class="text-xl font-bold text-gray-800 mb-2">Industrial Raw Materials</h3><p class="text-gray-600 text-sm">Our portfolio includes essential industrial raw materials such as minerals, metals, and chemicals for various manufacturing sectors.</p></div></div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll animate-delay-200"><img src="https://picsum.photos/seed/textile/400/300" alt="Colorful textiles and fabrics" class="w-full h-48 object-cover" /><div class="p-6"><h3 class="text-xl font-bold text-gray-800 mb-2">Textiles & Garments</h3><p class="text-gray-600 text-sm">Sourcing and exporting premium quality textiles, fabrics, and ready-made garments from India’s leading manufacturing hubs.</p></div></div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll animate-delay-300"><img src="https://picsum.photos/seed/handicraft/400/300" alt="Indian handicrafts" class="w-full h-48 object-cover" /><div class="p-6"><h3 class="text-xl font-bold text-gray-800 mb-2">Handicrafts & Decor</h3><p class="text-gray-600 text-sm">We export unique, handcrafted items that showcase the rich cultural heritage and artisanal skills of India.</p></div></div>
                 </div>
             </div>
         </section>
 
         <section id="services" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2><p class="text-gray-600 mt-4 max-w-2xl mx-auto">Comprehensive solutions to power your global trade operations.</p><div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div></div>
+                <div class="text-center mb-16 animate-on-scroll"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2><p class="text-gray-600 mt-4 max-w-2xl mx-auto">Comprehensive solutions to power your global trade operations.</p><div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div></div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                    <div class="bg-white p-8 rounded-lg shadow-lg"><div class="text-blue-600 text-5xl mb-6"><i class="fas fa-globe-americas"></i></div><h3 class="text-xl font-bold text-gray-800 mb-3">Global Trading</h3><p class="text-gray-600">We facilitate import and export of a wide array of commodities, ensuring competitive pricing and timely delivery.</p></div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg"><div class="text-blue-600 text-5xl mb-6"><i class="fas fa-truck-loading"></i></div><h3 class="text-xl font-bold text-gray-800 mb-3">Logistics Support</h3><p class="text-gray-600">Our end-to-end logistics solutions cover freight, customs clearance, and warehousing for hassle-free shipments.</p></div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg"><div class="text-blue-600 text-5xl mb-6"><i class="fas fa-search-location"></i></div><h3 class="text-xl font-bold text-gray-800 mb-3">Strategic Sourcing</h3><p class="text-gray-600">Leveraging our vast network, we identify and vet reliable suppliers to source high-quality products that meet your specifications.</p></div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg"><div class="text-blue-600 text-5xl mb-6"><i class="fas fa-clipboard-check"></i></div><h3 class="text-xl font-bold text-gray-800 mb-3">Quality Control</h3><p class="text-gray-600">We implement rigorous quality checks at every stage to ensure all products adhere to international standards.</p></div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll"><div class="text-blue-600 text-5xl mb-6"><i class="fas fa-globe-americas"></i></div><h3 class="text-xl font-bold text-gray-800 mb-3">Global Trading</h3><p class="text-gray-600">We facilitate import and export of a wide array of commodities, ensuring competitive pricing and timely delivery.</p></div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll animate-delay-100"><div class="text-blue-600 text-5xl mb-6"><i class="fas fa-truck-loading"></i></div><h3 class="text-xl font-bold text-gray-800 mb-3">Logistics Support</h3><p class="text-gray-600">Our end-to-end logistics solutions cover freight, customs clearance, and warehousing for hassle-free shipments.</p></div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll animate-delay-200"><div class="text-blue-600 text-5xl mb-6"><i class="fas fa-search-location"></i></div><h3 class="text-xl font-bold text-gray-800 mb-3">Strategic Sourcing</h3><p class="text-gray-600">Leveraging our vast network, we identify and vet reliable suppliers to source high-quality products that meet your specifications.</p></div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll animate-delay-300"><div class="text-blue-600 text-5xl mb-6"><i class="fas fa-clipboard-check"></i></div><h3 class="text-xl font-bold text-gray-800 mb-3">Quality Control</h3><p class="text-gray-600">We implement rigorous quality checks at every stage to ensure all products adhere to international standards.</p></div>
                 </div>
             </div>
         </section>
 
         <section id="contact" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">Get In Touch</h2><p class="text-gray-600 mt-4 max-w-2xl mx-auto">We're here to help. Contact us for quotes, inquiries, or partnership opportunities.</p><div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div></div>
+                <div class="text-center mb-16 animate-on-scroll"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">Get In Touch</h2><p class="text-gray-600 mt-4 max-w-2xl mx-auto">We're here to help. Contact us for quotes, inquiries, or partnership opportunities.</p><div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div></div>
                 <div class="grid md:grid-cols-2 gap-12">
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll">
                         <h3 class="text-2xl font-bold mb-6 text-gray-800">Send us a Message</h3>
-                        <form id="contact-form" action="form.php" method="POST">
+                        <form id="contact-form" action="https://formspree.io/f/xqkrpgyp" method="POST">
+                            <input type="hidden" name="_subject" value="New Contact Form Message">
                             <div class="mb-4"><label for="name" class="block text-gray-700 font-medium mb-2">Name</label><input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required /></div>
                             <div class="mb-4"><label for="email" class="block text-gray-700 font-medium mb-2">Email</label><input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required /></div>
                             <div class="mb-4"><label for="phone" class="block text-gray-700 font-medium mb-2">Phone</label><input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required /></div>
                             <div class="mb-4"><label for="message" class="block text-gray-700 font-medium mb-2">Message</label><textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea></div>
-                            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 disabled:bg-blue-300">Send Message</button>
+                            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-all duration-300 disabled:bg-blue-300 transform hover:scale-105">Send Message</button>
                             <div id="form-status" class="mt-4 text-center"></div>
                         </form>
                     </div>
-                    <div>
+                    <div class="animate-on-scroll animate-delay-200">
                         <div class="bg-white p-8 rounded-lg shadow-lg mb-8">
                             <h3 class="text-2xl font-bold mb-6 text-gray-800">Contact Information</h3>
                             <div class="space-y-4 text-gray-600">
                                 <p><i class="fas fa-map-marker-alt text-blue-600 w-6"></i> 47/C, Narmada Colony, Katol Road, Nagpur, MH-440013, India</p>
                                 <p><i class="fas fa-envelope text-blue-600 w-6"></i> <a href="mailto:globalpathtrades@gmail.com" class="hover:text-blue-700">globalpathtrades@gmail.com</a></p>
+                                <p><i class="fas fa-phone text-blue-600 w-6"></i> <a href="tel:+919579196451" class="hover:text-blue-700">+91 9579196451</a></p>
                                 <p><i class="fas fa-globe text-blue-600 w-6"></i> <a href="https://globalpathtrades.in" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700">globalpathtrades.in</a></p>
-                                <h4 class="font-semibold pt-4 text-gray-700">Representatives:</h4>
-                                <p><i class="fas fa-user-tie text-blue-600 w-6"></i> Ishan Shrivastava: +91 9699085715</p>
-                                <p><i class="fas fa-user-tie text-blue-600 w-6"></i> Piyush Saxena: +91 9422829604</p>
                             </div>
                         </div>
                         <div class="rounded-lg shadow-lg overflow-hidden">
@@ -176,7 +255,7 @@
                     <ul class="space-y-3 text-gray-400">
                         <li><i class="fas fa-map-marker-alt w-6"></i> Katol Road, Nagpur, India</li>
                         <li><i class="fas fa-envelope w-6"></i> globalpathtrades@gmail.com</li>
-                        <li><i class="fas fa-phone w-6"></i> +91 9699085715</li>
+                        <li><i class="fas fa-phone w-6"></i> +91 9579196451</li>
                     </ul>
                     <div class="mt-6 flex space-x-4">
                         <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-400 hover:text-white transition-colors">
@@ -193,6 +272,320 @@
             <p>&copy; 2024 Global Path Trades. All Rights Reserved. | Website designed by AI.</p>
         </div>
     </footer>
+
+    <!-- Trade With Us Modal -->
+    <div id="trade-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div id="trade-modal-content" class="relative bg-gray-50 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 opacity-0">
+            <button id="close-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10" aria-label="Close modal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+    
+            <div class="p-6 sm:p-8">
+                <div id="form-container">
+                    <div class="text-center mb-8">
+                        <h2 id="modal-title" class="text-3xl md:text-4xl font-bold text-gray-800">Trade With Us</h2>
+                        <p class="text-gray-600 mt-2 text-lg max-w-2xl mx-auto">Let’s grow together — Import or Export with ease.</p>
+                        <div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div>
+                    </div>
+                    <form id="trade-form" action="https://formspree.io/f/xqkrpgyp" method="POST" novalidate>
+                        <input type="hidden" name="_subject" value="New Trade Inquiry Received">
+                        <fieldset class="mb-8">
+                            <legend class="block text-gray-700 font-medium mb-4 text-xl font-semibold">Trade Details</legend>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Category</label>
+                                    <div class="flex items-center space-x-6">
+                                        <label class="flex items-center"><input type="radio" name="category" value="Importer" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" checked>&nbsp;<span class="ml-2 text-gray-700">Importer</span></label>
+                                        <label class="flex items-center"><input type="radio" name="category" value="Exporter" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">&nbsp;<span class="ml-2 text-gray-700">Exporter</span></label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="commodity-type" class="block text-gray-700 font-medium mb-2">Type of Commodity</label>
+                                    <select id="commodity-type" name="commodity-type" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                        <option value="">Select a type</option>
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="Spices">Spices</option>
+                                        <option value="Medicines">Medicines</option>
+                                        <option value="Metals">Metals</option>
+                                        <option value="Disposable Containers">Disposable Containers</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="specific-product" class="block text-gray-700 font-medium mb-2">Specific Product</label>
+                                    <input type="text" id="specific-product" name="specific-product" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Basmati Rice, Turmeric Powder" required>
+                                </div>
+                                <div>
+                                    <label for="quantity" class="block text-gray-700 font-medium mb-2">Quantity</label>
+                                    <select id="quantity" name="quantity" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                        <option value="">Select quantity</option>
+                                        <option value="FCL">Full Container Loaded (FCL)</option>
+                                        <option value="HCL">Half Container Loaded (HCL)</option>
+                                    </select>
+                                </div>
+                                <div id="fcl-number-container" class="hidden">
+                                    <label for="fcl-number" class="block text-gray-700 font-medium mb-2">Number of FCL</label>
+                                    <input type="number" id="fcl-number" name="fcl-number" min="1" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., 3">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="mb-6">
+                            <legend class="block text-gray-700 font-medium mb-4 text-xl font-semibold">Contact & Location</legend>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="full-name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                    <input type="text" id="full-name" name="full-name" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                </div>
+                                 <div>
+                                    <label for="contact-number" class="block text-gray-700 font-medium mb-2">Contact Number</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"><span class="text-gray-500">+91</span></div>
+                                        <input type="tel" id="contact-number" name="contact-number" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pl-12" pattern="[6-9]{1}[0-9]{9}" title="Please enter a valid 10-digit Indian mobile number" required>
+                                    </div>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="trade-email" class="block text-gray-700 font-medium mb-2">Email ID</label>
+                                    <input type="email" id="trade-email" name="email" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                </div>
+                                 <div class="md:col-span-2">
+                                    <label for="address" class="block text-gray-700 font-medium mb-2">Address</label>
+                                    <textarea id="address" name="address" rows="3" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required></textarea>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="country" class="block text-gray-700 font-medium mb-2">Country</label>
+                                    <select id="country" name="country" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                        <option value="">Select Country</option>
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="AL">Albania</option>
+                                        <option value="DZ">Algeria</option>
+                                        <option value="AD">Andorra</option>
+                                        <option value="AO">Angola</option>
+                                        <option value="AG">Antigua and Barbuda</option>
+                                        <option value="AR">Argentina</option>
+                                        <option value="AM">Armenia</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="AZ">Azerbaijan</option>
+                                        <option value="BS">Bahamas</option>
+                                        <option value="BH">Bahrain</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BB">Barbados</option>
+                                        <option value="BY">Belarus</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BZ">Belize</option>
+                                        <option value="BJ">Benin</option>
+                                        <option value="BT">Bhutan</option>
+                                        <option value="BO">Bolivia</option>
+                                        <option value="BA">Bosnia and Herzegovina</option>
+                                        <option value="BW">Botswana</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="BN">Brunei</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="BI">Burundi</option>
+                                        <option value="CV">Cabo Verde</option>
+                                        <option value="KH">Cambodia</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="TD">Chad</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CN">China</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="KM">Comoros</option>
+                                        <option value="CD">Congo, Democratic Republic of the</option>
+                                        <option value="CG">Congo, Republic of the</option>
+                                        <option value="CR">Costa Rica</option>
+                                        <option value="CI">Cote d'Ivoire</option>
+                                        <option value="HR">Croatia</option>
+                                        <option value="CU">Cuba</option>
+                                        <option value="CY">Cyprus</option>
+                                        <option value="CZ">Czech Republic</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="DJ">Djibouti</option>
+                                        <option value="DM">Dominica</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EC">Ecuador</option>
+                                        <option value="EG">Egypt</option>
+                                        <option value="SV">El Salvador</option>
+                                        <option value="GQ">Equatorial Guinea</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="EE">Estonia</option>
+                                        <option value="SZ">Eswatini</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="FJ">Fiji</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="FR">France</option>
+                                        <option value="GA">Gabon</option>
+                                        <option value="GM">Gambia</option>
+                                        <option value="GE">Georgia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GR">Greece</option>
+                                        <option value="GD">Grenada</option>
+                                        <option value="GT">Guatemala</option>
+                                        <option value="GN">Guinea</option>
+                                        <option value="GW">Guinea-Bissau</option>
+                                        <option value="GY">Guyana</option>
+                                        <option value="HT">Haiti</option>
+                                        <option value="HN">Honduras</option>
+                                        <option value="HU">Hungary</option>
+                                        <option value="IS">Iceland</option>
+                                        <option value="IN">India</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="IR">Iran</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JM">Jamaica</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="KZ">Kazakhstan</option>
+                                        <option value="KE">Kenya</option>
+                                        <option value="KI">Kiribati</option>
+                                        <option value="XK">Kosovo</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="KG">Kyrgyzstan</option>
+                                        <option value="LA">Laos</option>
+                                        <option value="LV">Latvia</option>
+                                        <option value="LB">Lebanon</option>
+                                        <option value="LS">Lesotho</option>
+                                        <option value="LR">Liberia</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="LI">Liechtenstein</option>
+                                        <option value="LT">Lithuania</option>
+                                        <option value="LU">Luxembourg</option>
+                                        <option value="MG">Madagascar</option>
+                                        <option value="MW">Malawi</option>
+                                        <option value="MY">Malaysia</option>
+                                        <option value="MV">Maldives</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MT">Malta</option>
+                                        <option value="MH">Marshall Islands</option>
+                                        <option value="MR">Mauritania</option>
+                                        <option value="MU">Mauritius</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="FM">Micronesia</option>
+                                        <option value="MD">Moldova</option>
+                                        <option value="MC">Monaco</option>
+                                        <option value="MN">Mongolia</option>
+                                        <option value="ME">Montenegro</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MZ">Mozambique</option>
+                                        <option value="MM">Myanmar (Burma)</option>
+                                        <option value="NA">Namibia</option>
+                                        <option value="NR">Nauru</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="NI">Nicaragua</option>
+                                        <option value="NE">Niger</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="KP">North Korea</option>
+                                        <option value="MK">North Macedonia</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PW">Palau</option>
+                                        <option value="PS">Palestine</option>
+                                        <option value="PA">Panama</option>
+                                        <option value="PG">Papua New Guinea</option>
+                                        <option value="PY">Paraguay</option>
+                                        <option value="PE">Peru</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russia</option>
+                                        <option value="RW">Rwanda</option>
+                                        <option value="KN">Saint Kitts and Nevis</option>
+                                        <option value="LC">Saint Lucia</option>
+                                        <option value="VC">Saint Vincent and the Grenadines</option>
+                                        <option value="WS">Samoa</option>
+                                        <option value="SM">San Marino</option>
+                                        <option value="ST">Sao Tome and Principe</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="SN">Senegal</option>
+                                        <option value="RS">Serbia</option>
+                                        <option value="SC">Seychelles</option>
+                                        <option value="SL">Sierra Leone</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="SK">Slovakia</option>
+                                        <option value="SI">Slovenia</option>
+                                        <option value="SB">Solomon Islands</option>
+                                        <option value="SO">Somalia</option>
+                                        <option value="ZA">South Africa</option>
+                                        <option value="KR">South Korea</option>
+                                        <option value="SS">South Sudan</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="LK">Sri Lanka</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="SR">Suriname</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="SY">Syria</option>
+                                        <option value="TW">Taiwan</option>
+                                        <option value="TJ">Tajikistan</option>
+                                        <option value="TZ">Tanzania</option>
+                                        <option value="TH">Thailand</option>
+                                        <option value="TL">Timor-Leste</option>
+                                        <option value="TG">Togo</option>
+                                        <option value="TO">Tonga</option>
+                                        <option value="TT">Trinidad and Tobago</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="TM">Turkmenistan</option>
+                                        <option value="TV">Tuvalu</option>
+                                        <option value="UG">Uganda</option>
+                                        <option value="UA">Ukraine</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="US">United States</option>
+                                        <option value="UY">Uruguay</option>
+                                        <option value="UZ">Uzbekistan</option>
+                                        <option value="VU">Vanuatu</option>
+                                        <option value="VA">Vatican City</option>
+                                        <option value="VE">Venezuela</option>
+                                        <option value="VN">Vietnam</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value="ZM">Zambia</option>
+                                        <option value="ZW">Zimbabwe</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="postal-code" class="block text-gray-700 font-medium mb-2">Postal / Zip Code</label>
+                                    <input type="text" id="postal-code" name="postal-code" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                    <div id="postal-code-status" class="text-sm mt-1 h-4"></div>
+                                </div>
+                                <div>
+                                    <label for="trade-city" class="block text-gray-700 font-medium mb-2">City</label>
+                                    <input type="text" id="trade-city" name="city" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="trade-state" class="block text-gray-700 font-medium mb-2">State / Province</label>
+                                    <input type="text" id="trade-state" name="state" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="mt-8">
+                           <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3.5 px-6 rounded-lg hover:bg-blue-700 transition-all duration-300 disabled:bg-blue-400 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">Submit Inquiry</button>
+                           <div id="trade-form-status" class="mt-4 text-center"></div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="thank-you-section" class="hidden text-center bg-white p-10 rounded-xl shadow-lg">
+                    <div class="text-green-500 text-6xl mb-4">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Thank you for connecting with us!</h2>
+                    <p class="text-gray-600 text-lg">Our team will get in touch with you shortly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="/index.tsx"></script>
   </body>

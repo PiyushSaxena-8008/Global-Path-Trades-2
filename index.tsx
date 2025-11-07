@@ -1,29 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Smooth Scrolling for Anchor Links ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId && targetId !== '#') {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-
     // --- Header Logic ---
     const header = document.getElementById('header') as HTMLElement;
     const mobileMenuButton = document.getElementById('mobile-menu-button') as HTMLButtonElement;
     const navbar = document.getElementById('navbar-sticky') as HTMLElement;
-    const navLinksForMenuClose = navbar.querySelectorAll('a');
     const navbarList = navbar.querySelector('ul') as HTMLUListElement;
     const brandName = header.querySelector('a > span') as HTMLElement;
-    const allNavLinks = document.querySelectorAll('#navbar-sticky a');
+    const allNavLinks = document.querySelectorAll('#navbar-sticky a, footer a, .hero-buttons a');
     const headerSocialLinks = document.querySelectorAll('.header-social-link');
     const headerPartition = document.getElementById('header-partition') as HTMLElement;
 
@@ -33,15 +16,38 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenuButton.setAttribute('aria-expanded', navbar.classList.contains('hidden') ? 'false' : 'true');
     });
 
-    // Close mobile menu on link click
-    navLinksForMenuClose.forEach(link => {
-        link.addEventListener('click', () => {
-            if (!navbar.classList.contains('hidden')) {
-                navbar.classList.add('hidden');
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
+    // --- Smooth Scrolling & Mobile Menu Close for Nav Links ---
+    allNavLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            const href = link.getAttribute('href');
+
+            // Handle smooth scrolling for internal links
+            if (href && href.startsWith('#')) {
+                event.preventDefault();
+                
+                // Close mobile menu if open and if the link is in the navbar
+                if (link.closest('#navbar-sticky') && !navbar.classList.contains('hidden')) {
+                    navbar.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+                
+                const targetElement = document.querySelector(href) as HTMLElement;
+                if (targetElement) {
+                    // The header's height is roughly 80px, matching scroll-pt-20.
+                    // This provides an offset to ensure the section title is visible below the sticky header.
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
+
 
     // Header background change on scroll
     const heroSection = document.getElementById('home');
@@ -132,7 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const id = entry.target.id;
-                allNavLinks.forEach(link => {
+                const navLinksToUpdate = document.querySelectorAll('#navbar-sticky a');
+                navLinksToUpdate.forEach(link => {
                     link.classList.remove('text-white', 'bg-blue-700', 'md:bg-transparent', 'md:text-blue-700', 'font-bold');
                     link.removeAttribute('aria-current');
 
@@ -162,45 +169,287 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 
+    // --- Scroll-triggered Animations ---
+    const animationTargets = document.querySelectorAll('.animate-on-scroll, .animate-fade-in');
+    const animationObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                // Optional: Stop observing the element after it has animated
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    animationTargets.forEach(target => {
+        animationObserver.observe(target);
+    });
+
+
     // --- Contact Form Logic ---
-    const form = document.getElementById('contact-form') as HTMLFormElement;
-    const formStatus = document.getElementById('form-status') as HTMLDivElement;
-    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const contactFormStatus = document.getElementById('form-status') as HTMLDivElement;
+    const contactSubmitButton = contactForm.querySelector('button[type="submit"]') as HTMLButtonElement;
 
-    form.addEventListener('submit', async (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
-        formStatus.textContent = '';
-        formStatus.className = 'mt-4 text-center';
+        if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+        }
 
-        const formData = new FormData(form);
+        contactSubmitButton.disabled = true;
+        contactSubmitButton.textContent = 'Sending...';
+        contactFormStatus.textContent = '';
+        contactFormStatus.className = 'mt-4 text-center';
+
+        const formData = new FormData(contactForm);
 
         try {
-            const response = await fetch(form.action, {
+            const response = await fetch(contactForm.action, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             });
 
             if (response.ok) {
-                formStatus.textContent = 'Thank you! Your message has been sent.';
-                formStatus.classList.add('text-green-600');
-                form.reset();
+                contactFormStatus.textContent = 'Thank you! Your message has been sent.';
+                contactFormStatus.classList.add('text-green-600');
+                contactForm.reset();
             } else {
                 const errorData = await response.json();
-                throw new Error(errorData.message || `Server error: ${response.statusText}`);
+                const errorMessage = errorData.error || 'Something went wrong.';
+                throw new Error(errorMessage);
             }
-
-        } catch (error) {
-            formStatus.textContent = `Something went wrong. Please try again.`;
-            formStatus.classList.add('text-red-600');
+        } catch (error: any) {
+            contactFormStatus.textContent = `Submission failed: ${error.message}`;
+            contactFormStatus.classList.add('text-red-600');
         } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Send Message';
+            contactSubmitButton.disabled = false;
+            contactSubmitButton.textContent = 'Send Message';
         }
     });
+
+    // --- Trade Modal & Form Logic ---
+    const tradeModal = document.getElementById('trade-modal') as HTMLDivElement;
+    const tradeModalContent = document.getElementById('trade-modal-content') as HTMLDivElement;
+    const openModalButton = document.getElementById('trade-with-us-button') as HTMLButtonElement;
+    const closeModalButton = document.getElementById('close-modal-button') as HTMLButtonElement;
+    
+    const tradeForm = document.getElementById('trade-form') as HTMLFormElement;
+    const formContainer = document.getElementById('form-container') as HTMLDivElement;
+    const thankYouSection = document.getElementById('thank-you-section') as HTMLDivElement;
+    const quantitySelect = document.getElementById('quantity') as HTMLSelectElement;
+    const fclNumberContainer = document.getElementById('fcl-number-container') as HTMLDivElement;
+    const fclNumberInput = document.getElementById('fcl-number') as HTMLInputElement;
+    
+    const countrySelect = document.getElementById('country') as HTMLSelectElement;
+    const postalCodeInput = document.getElementById('postal-code') as HTMLInputElement;
+    const cityInput = document.getElementById('trade-city') as HTMLInputElement;
+    const stateInput = document.getElementById('trade-state') as HTMLInputElement;
+    const postalCodeStatus = document.getElementById('postal-code-status') as HTMLDivElement;
+    const tradeSubmitButton = tradeForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const tradeFormStatus = document.getElementById('trade-form-status') as HTMLDivElement;
+
+    const openModal = () => {
+        tradeModal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        tradeModalContent.classList.remove('scale-100', 'opacity-100');
+        tradeModalContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+            tradeModal.classList.remove('is-open');
+            document.body.style.overflow = '';
+        }, 300); // Match transition duration
+    };
+
+    openModalButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+    tradeModal.addEventListener('click', (event) => {
+        if (event.target === tradeModal) {
+            closeModal();
+        }
+    });
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && tradeModal.classList.contains('is-open')) {
+            closeModal();
+        }
+    });
+
+    // Conditional Field for FCL Quantity
+    quantitySelect.addEventListener('change', () => {
+        if (quantitySelect.value === 'FCL') {
+            fclNumberContainer.classList.remove('hidden');
+            fclNumberInput.required = true;
+        } else {
+            fclNumberContainer.classList.add('hidden');
+            fclNumberInput.required = false;
+            fclNumberInput.value = '';
+        }
+    });
+
+    // Location Auto-fill Logic
+    const fetchLocationInfo = async () => {
+        const countryCode = countrySelect.value;
+        const postalCode = postalCodeInput.value.trim();
+
+        if (countryCode && postalCode) {
+            postalCodeStatus.textContent = 'Fetching location...';
+            postalCodeStatus.className = 'text-sm mt-1 text-gray-500';
+            cityInput.value = '';
+            stateInput.value = '';
+
+            try {
+                const response = await fetch(`https://api.zippopotam.us/${countryCode}/${postalCode}`);
+                if (!response.ok) {
+                    throw new Error('Invalid postal code for the selected country.');
+                }
+                const data = await response.json();
+                
+                if (data && data.places && data.places.length > 0) {
+                    const place = data.places[0];
+                    cityInput.value = place['place name'] || '';
+                    stateInput.value = place['state'] || '';
+                    postalCodeStatus.textContent = 'Location found!';
+                    postalCodeStatus.className = 'text-sm mt-1 text-green-600';
+                } else {
+                     throw new Error('Location not found.');
+                }
+            } catch (error: any) {
+                postalCodeStatus.textContent = error.message || 'Could not fetch location.';
+                postalCodeStatus.className = 'text-sm mt-1 text-red-600';
+            }
+        } else {
+             postalCodeStatus.textContent = '';
+        }
+    };
+    
+    countrySelect.addEventListener('change', fetchLocationInfo);
+    postalCodeInput.addEventListener('blur', fetchLocationInfo);
+
+
+    // Trade Form Submission
+    tradeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!tradeForm.checkValidity()) {
+            tradeForm.reportValidity();
+            return;
+        }
+        
+        tradeSubmitButton.disabled = true;
+        tradeSubmitButton.textContent = 'Submitting...';
+        if(tradeFormStatus) {
+            tradeFormStatus.textContent = '';
+            tradeFormStatus.className = 'mt-4 text-center';
+        }
+
+        const formData = new FormData(tradeForm);
+        const data = Object.fromEntries(formData.entries());
+        const countryName = countrySelect.options[countrySelect.selectedIndex].text;
+
+        // --- 1. Send SMS (via WhatsApp) ---
+        // The form data is sent to the specified mobile number using a WhatsApp link.
+        // This provides an instant notification similar to an SMS.
+        let message = `*New Trade Inquiry from ${data['full-name']}*\n\n`;
+        message += `*Category:* ${data.category}\n`;
+        message += `*Commodity Type:* ${data['commodity-type']}\n`;
+        message += `*Specific Product:* ${data['specific-product']}\n`;
+        message += `*Quantity:* ${data.quantity}\n`;
+        if (data.quantity === 'FCL' && data['fcl-number']) {
+            message += `*Number of FCL:* ${data['fcl-number']}\n`;
+        }
+        message += `\n*Contact & Location:*\n`;
+        message += `*Name:* ${data['full-name']}\n`;
+        message += `*Phone:* +91${data['contact-number']}\n`;
+        message += `*Email:* ${data.email}\n`;
+        message += `*Address:* ${data.address}\n`;
+        message += `*City:* ${data.city}\n`;
+        message += `*State/Province:* ${data.state}\n`;
+        message += `*Postal Code:* ${data['postal-code']}\n`;
+        message += `*Country:* ${countryName}`;
+
+        const whatsappNumber = '919699085715';
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+
+        // --- 2. Send Email (via Formspree) ---
+        // The form is configured to send data to a Formspree endpoint.
+        // Formspree then emails the data to the configured address (Globalpathtrades@gmail.com).
+        // The subject can be configured in the Formspree dashboard to "New Trade Inquiry Received".
+        try {
+            const response = await fetch(tradeForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                // --- 3. Show Success ---
+                formContainer.classList.add('hidden');
+                thankYouSection.classList.remove('hidden');
+                triggerConfetti();
+
+                setTimeout(() => {
+                    closeModal();
+                    setTimeout(() => {
+                        formContainer.classList.remove('hidden');
+                        thankYouSection.classList.add('hidden');
+                        tradeForm.reset();
+                        postalCodeStatus.textContent = '';
+                        if(tradeFormStatus) tradeFormStatus.textContent = '';
+                        tradeSubmitButton.disabled = false;
+                        tradeSubmitButton.textContent = 'Submit Inquiry';
+                    }, 500);
+                }, 5000);
+            } else {
+                const errorData = await response.json();
+                const errorMessage = errorData.error || 'Something went wrong with the email submission.';
+                throw new Error(errorMessage);
+            }
+        } catch (error: any) {
+            if(tradeFormStatus) {
+                tradeFormStatus.textContent = `Submission failed. Please try again. (Error: ${error.message})`;
+                tradeFormStatus.classList.add('text-red-600');
+            }
+            tradeSubmitButton.disabled = false;
+            tradeSubmitButton.textContent = 'Submit Inquiry';
+        }
+    });
+    
+    // Confetti Animation
+    function triggerConfetti() {
+        const container = thankYouSection;
+        if (!container) return;
+        
+        const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+        
+        for (let i = 0; i < 150; i++) {
+            setTimeout(() => {
+                const piece = document.createElement('div');
+                piece.style.position = 'absolute';
+                piece.style.left = `${Math.random() * 100}%`;
+                piece.style.top = `${-20}px`;
+                piece.style.width = `${Math.random() * 8 + 4}px`;
+                piece.style.height = piece.style.width;
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.opacity = `${Math.random() + 0.5}`;
+                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                const animation = piece.animate([
+                    { transform: `translateY(0px) rotate(${Math.random() * 360}deg)`, opacity: 1 },
+                    { transform: `translateY(${container.offsetHeight + 20}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 4000,
+                    easing: 'ease-out',
+                    iterations: 1
+                });
+                
+                animation.onfinish = () => piece.remove();
+                
+                container.appendChild(piece);
+            }, i * 15);
+        }
+    }
 });
