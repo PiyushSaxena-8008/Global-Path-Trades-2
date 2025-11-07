@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Header Logic ---
-    const header = document.getElementById('header') as HTMLElement;
-    const mobileMenuButton = document.getElementById('mobile-menu-button') as HTMLButtonElement;
-    const navbar = document.getElementById('navbar-sticky') as HTMLElement;
-    const navbarList = navbar.querySelector('ul') as HTMLUListElement;
-    const brandName = document.getElementById('brand-name') as HTMLElement;
+    const header = document.getElementById('header');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const navbar = document.getElementById('navbar-sticky');
+    const navbarList = navbar.querySelector('ul');
+    const brandName = document.getElementById('brand-name');
     const allNavLinks = document.querySelectorAll('#navbar-sticky a, footer a, .hero-buttons a');
     const headerSocialLinks = document.querySelectorAll('.header-social-link');
-    const headerPartition = document.getElementById('header-partition') as HTMLElement;
+    const headerPartition = document.getElementById('header-partition');
 
     // Toggle mobile menu
     mobileMenuButton.addEventListener('click', () => {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     mobileMenuButton.setAttribute('aria-expanded', 'false');
                 }
                 
-                const targetElement = document.querySelector(href) as HTMLElement;
+                const targetElement = document.querySelector(href);
                 if (targetElement) {
                     // The header's height is roughly 80px, matching scroll-pt-20.
                     // This provides an offset to ensure the section title is visible below the sticky header.
@@ -139,13 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Hero Slider Logic ---
     const slides = document.querySelectorAll('.hero-slide');
-    const prevBtn = document.getElementById('prev-slide-btn') as HTMLButtonElement;
-    const nextBtn = document.getElementById('next-slide-btn') as HTMLButtonElement;
+    const prevBtn = document.getElementById('prev-slide-btn');
+    const nextBtn = document.getElementById('next-slide-btn');
     const dotsContainer = document.getElementById('slider-dots');
 
     if (slides.length > 0 && prevBtn && nextBtn && dotsContainer) {
         let currentSlide = 0;
-        let slideInterval: number;
+        let slideInterval;
 
         // Create dots
         slides.forEach((_, index) => {
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dots = document.querySelectorAll('.slider-dot');
 
-        const goToSlide = (slideIndex: number) => {
+        const goToSlide = (slideIndex) => {
             slides.forEach((slide, index) => {
                 slide.classList.toggle('active-slide', index === slideIndex);
             });
@@ -262,25 +262,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Trade Modal & Form Logic ---
-    const tradeModal = document.getElementById('trade-modal') as HTMLDivElement;
-    const tradeModalContent = document.getElementById('trade-modal-content') as HTMLDivElement;
-    const openModalButton = document.getElementById('trade-with-us-button') as HTMLButtonElement;
-    const closeModalButton = document.getElementById('close-modal-button') as HTMLButtonElement;
+    const tradeModal = document.getElementById('trade-modal');
+    const tradeModalContent = document.getElementById('trade-modal-content');
+    const openModalButton = document.getElementById('trade-with-us-button');
+    const closeModalButton = document.getElementById('close-modal-button');
     
+    // Fix: Cast form-related elements to their specific HTML element types to resolve TypeScript errors on properties like 'value', 'required', 'checkValidity', etc.
     const tradeForm = document.getElementById('trade-form') as HTMLFormElement;
-    const formContainer = document.getElementById('form-container') as HTMLDivElement;
-    const thankYouSection = document.getElementById('thank-you-section') as HTMLDivElement;
+    const formContainer = document.getElementById('form-container');
+    const thankYouSection = document.getElementById('thank-you-section');
     const quantitySelect = document.getElementById('quantity') as HTMLSelectElement;
-    const fclNumberContainer = document.getElementById('fcl-number-container') as HTMLDivElement;
+    const fclNumberContainer = document.getElementById('fcl-number-container');
     const fclNumberInput = document.getElementById('fcl-number') as HTMLInputElement;
     
     const countrySelect = document.getElementById('country') as HTMLSelectElement;
     const postalCodeInput = document.getElementById('postal-code') as HTMLInputElement;
     const cityInput = document.getElementById('trade-city') as HTMLInputElement;
     const stateInput = document.getElementById('trade-state') as HTMLInputElement;
-    const postalCodeStatus = document.getElementById('postal-code-status') as HTMLDivElement;
+    const postalCodeStatus = document.getElementById('postal-code-status');
     const tradeSubmitButton = tradeForm.querySelector('button[type="submit"]') as HTMLButtonElement;
-    const tradeFormStatus = document.getElementById('trade-form-status') as HTMLDivElement;
+    const tradeFormStatus = document.getElementById('trade-form-status');
 
     const openModal = () => {
         tradeModal.classList.add('is-open');
@@ -348,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                      throw new Error('Location not found.');
                 }
-            } catch (error: any) {
+            } catch (error) {
                 postalCodeStatus.textContent = error.message || 'Could not fetch location.';
                 postalCodeStatus.className = 'text-sm mt-1 text-red-600';
             }
@@ -439,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorMessage = errorData.error || 'Something went wrong with the email submission.';
                 throw new Error(errorMessage);
             }
-        } catch (error: any) {
+        } catch (error) {
             if(tradeFormStatus) {
                 tradeFormStatus.textContent = `Submission failed. Please try again. (Error: ${error.message})`;
                 tradeFormStatus.classList.add('text-red-600');

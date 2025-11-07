@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Header Mobile Menu Logic ---
-    const mobileMenuButton = document.getElementById('mobile-menu-button') as HTMLButtonElement;
-    const navbar = document.getElementById('navbar-sticky') as HTMLElement;
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const navbar = document.getElementById('navbar-sticky');
 
     mobileMenuButton.addEventListener('click', () => {
         navbar.classList.toggle('hidden');
@@ -10,20 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Trade Form Logic ---
+    // Fix: Cast form-related elements to their specific HTML element types to resolve TypeScript errors on properties like 'value', 'required', 'checkValidity', etc.
     const form = document.getElementById('trade-form') as HTMLFormElement;
-    const formContainer = document.getElementById('form-container') as HTMLDivElement;
-    const thankYouSection = document.getElementById('thank-you-section') as HTMLDivElement;
+    const formContainer = document.getElementById('form-container');
+    const thankYouSection = document.getElementById('thank-you-section');
     const quantitySelect = document.getElementById('quantity') as HTMLSelectElement;
-    const fclNumberContainer = document.getElementById('fcl-number-container') as HTMLDivElement;
+    const fclNumberContainer = document.getElementById('fcl-number-container');
     const fclNumberInput = document.getElementById('fcl-number') as HTMLInputElement;
 
     const countrySelect = document.getElementById('country') as HTMLSelectElement;
     const postalCodeInput = document.getElementById('postal-code') as HTMLInputElement;
     const cityInput = document.getElementById('city') as HTMLInputElement;
     const stateInput = document.getElementById('state') as HTMLInputElement;
-    const postalCodeStatus = document.getElementById('postal-code-status') as HTMLDivElement;
+    const postalCodeStatus = document.getElementById('postal-code-status');
     const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-    const formStatus = document.getElementById('form-status') as HTMLDivElement;
+    const formStatus = document.getElementById('form-status');
 
     // --- Conditional Field for FCL Quantity ---
     quantitySelect.addEventListener('change', () => {
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     throw new Error('Location not found.');
                 }
-            } catch (error: any) {
+            } catch (error) {
                 postalCodeStatus.textContent = error.message || 'Could not fetch location.';
                 postalCodeStatus.className = 'text-sm mt-1 text-red-600';
             }
@@ -148,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorMessage = errorData.error || 'Something went wrong with the email submission.';
                 throw new Error(errorMessage);
             }
-        } catch (error: any) {
+        } catch (error) {
             formStatus.textContent = `Submission failed. Please try again. (Error: ${error.message})`;
             formStatus.classList.add('text-red-600');
             submitButton.disabled = false;
