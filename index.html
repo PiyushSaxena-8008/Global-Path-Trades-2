@@ -11,17 +11,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   </head>
   <body class="bg-white text-gray-800 font-sans">
-    <header id="header" class="fixed w-full z-20 top-0 left-0 transition-all duration-300 bg-transparent">
+    <header id="header" class="fixed w-full z-20 top-0 left-0 transition-all duration-300 text-white bg-black/30 backdrop-blur-md">
         <nav class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#home" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap text-blue-800">Global Path Trades</span>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap">Global Path Trades</span>
             </a>
-            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
-                <div class="hidden lg:flex items-center mr-4 text-sm text-gray-600">
-                    <i class="fas fa-envelope mr-2 text-blue-600"></i>
-                    <span>globalpathtrades@gmail.com</span>
+            <div id="header-right-group" class="flex md:order-2 items-center">
+                <!-- Social Icons -->
+                <div class="hidden md:flex items-center">
+                    <div id="header-partition" class="h-6 w-px bg-gray-400/50 ml-6 mr-6"></div>
+                    <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="header-social-link hover:text-blue-300 transition-colors text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="header-social-link hover:text-blue-300 transition-colors text-xl ml-4">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
                 </div>
-                <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
+                <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50" aria-controls="navbar-sticky" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
@@ -29,13 +35,23 @@
                 </button>
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-                <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
-                    <li><a href="#home" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 text-white bg-blue-700 md:bg-transparent md:text-blue-700" aria-current="page">Home</a></li>
-                    <li><a href="#about" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">About Us</a></li>
-                    <li><a href="#products" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Products</a></li>
-                    <li><a href="#services" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Services</a></li>
-                    <li><a href="#clients" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Clients</a></li>
-                    <li><a href="#contact" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Contact</a></li>
+                <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
+                    <li><a href="#home" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300" aria-current="page">Home</a></li>
+                    <li><a href="#about" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 hover:text-blue-300 md:hover:bg-transparent">About Us</a></li>
+                    <li><a href="#products" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 hover:text-blue-300 md:hover:bg-transparent">Products</a></li>
+                    <li><a href="#services" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 hover:text-blue-300 md:hover:bg-transparent">Services</a></li>
+                    <li><a href="#contact" class="block py-2 px-3 rounded md:p-0 transition-colors duration-300 hover:text-blue-300 md:hover:bg-transparent">Contact</a></li>
+                    <!-- Social Icons for Mobile Menu -->
+                    <li class="pt-4 mt-4 border-t border-gray-600 md:hidden">
+                        <div class="flex justify-center space-x-6">
+                            <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-blue-300 transition-colors text-2xl">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-blue-300 transition-colors text-2xl">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -107,18 +123,6 @@
             </div>
         </section>
 
-        <section id="clients" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">Our Clients & Partners</h2><p class="text-gray-600 mt-4 max-w-2xl mx-auto">Building trust and lasting relationships across the globe.</p><div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div></div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-md border-l-4 border-blue-500"><p class="text-gray-600 italic mb-6">"Global Path Trades has been an invaluable partner for our sourcing needs in India. Their professionalism and commitment to quality are second to none."</p><div class="text-right"><p class="font-bold text-gray-800">John Doe</p><p class="text-sm text-gray-500">CEO, International Imports</p></div></div>
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-md border-l-4 border-blue-500"><p class="text-gray-600 italic mb-6">"The logistics support we received was seamless. They handled everything from customs to delivery, allowing us to focus on our core business. Highly recommended."</p><div class="text-right"><p class="font-bold text-gray-800">Jane Smith</p><p class="text-sm text-gray-500">Supply Chain Manager, Global Exports LLC</p></div></div>
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-md border-l-4 border-blue-500"><p class="text-gray-600 italic mb-6">"Their team's expertise in the commodity market is exceptional. They provided us with valuable insights and secured a very competitive deal."</p><div class="text-right"><p class="font-bold text-gray-800">Samuel Lee</p><p class="text-sm text-gray-500">Procurement Director, APAC Group</p></div></div>
-                </div>
-                <div class="mt-16 text-center"><h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Global Reach</h3><p class="text-gray-600 max-w-3xl mx-auto mb-8">We proudly serve a diverse clientele spanning across North America, Europe, Asia, and the Middle East, fostering strong trade links that transcend borders.</p><img src="https://picsum.photos/seed/map/1200/400" alt="World map showing global reach" class="mx-auto rounded-lg shadow-lg"/></div>
-            </div>
-        </section>
-
         <section id="contact" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">Get In Touch</h2><p class="text-gray-600 mt-4 max-w-2xl mx-auto">We're here to help. Contact us for quotes, inquiries, or partnership opportunities.</p><div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div></div>
@@ -174,6 +178,14 @@
                         <li><i class="fas fa-envelope w-6"></i> globalpathtrades@gmail.com</li>
                         <li><i class="fas fa-phone w-6"></i> +91 9699085715</li>
                     </ul>
+                    <div class="mt-6 flex space-x-4">
+                        <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
