@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuButton = document.getElementById('mobile-menu-button') as HTMLButtonElement;
     const navbar = document.getElementById('navbar-sticky') as HTMLElement;
     const navbarList = navbar.querySelector('ul') as HTMLUListElement;
-    const brandName = header.querySelector('a > span') as HTMLElement;
+    const brandName = document.getElementById('brand-name') as HTMLElement;
     const allNavLinks = document.querySelectorAll('#navbar-sticky a, footer a, .hero-buttons a');
     const headerSocialLinks = document.querySelectorAll('.header-social-link');
     const headerPartition = document.getElementById('header-partition') as HTMLElement;
@@ -57,10 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!entry.isIntersecting) {
                 // Scrolled past hero, change to opaque header
                 header.classList.add('bg-white', 'shadow-md', 'text-gray-700');
-                header.classList.remove('text-white', 'bg-black/30', 'backdrop-blur-md');
-                brandName.classList.add('text-blue-800');
+                header.classList.remove('text-white', 'bg-gray-900');
+                if (brandName) {
+                    brandName.classList.add('text-blue-800');
+                    brandName.classList.remove('text-blue-400');
+                }
                 mobileMenuButton.classList.add('text-gray-500');
-                mobileMenuButton.classList.remove('hover:bg-white/20', 'focus:ring-white/50');
+                mobileMenuButton.classList.remove('hover:bg-gray-700', 'focus:ring-gray-600');
                 mobileMenuButton.classList.add('hover:bg-gray-100', 'focus:ring-gray-200');
                 navbarList.classList.add('bg-gray-50', 'md:bg-transparent');
                 navbarList.classList.remove('border-gray-700');
@@ -94,10 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Hero is in view, use translucent header
                 header.classList.remove('bg-white', 'shadow-md', 'text-gray-700');
-                header.classList.add('text-white', 'bg-black/30', 'backdrop-blur-md');
-                brandName.classList.remove('text-blue-800');
+                header.classList.add('text-white', 'bg-gray-900');
+                if (brandName) {
+                    brandName.classList.add('text-blue-400');
+                    brandName.classList.remove('text-blue-800');
+                }
                 mobileMenuButton.classList.remove('text-gray-500');
-                mobileMenuButton.classList.add('hover:bg-white/20', 'focus:ring-white/50');
+                mobileMenuButton.classList.add('hover:bg-gray-700', 'focus:ring-gray-600');
                 mobileMenuButton.classList.remove('hover:bg-gray-100', 'focus:ring-gray-200');
                 navbarList.classList.remove('bg-gray-50', 'md:bg-transparent');
                 navbarList.classList.add('border-gray-700');
