@@ -9,23 +9,70 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-      .form-input {
-        @apply w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+      /* Applying a smoother ease-in-out to all transitions */
+      .transition-all, .transition, .transition-transform, .transition-colors, .form-input {
+        transition-timing-function: ease-in-out !important;
       }
-      .form-label {
-        @apply block text-gray-700 font-medium mb-2;
+
+      /* Refined focus state for form inputs */
+      .form-input:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 4px rgba(59, 130, 246, 0.5); /* Mimic Tailwind's focus:ring */
       }
-       /* Ensure thank you message can contain absolutely positioned confetti */
+      
+      /* Primary submit button glow and lift */
+      #trade-form button[type="submit"] {
+        transition: all 0.3s ease-in-out;
+      }
+      #trade-form button[type="submit"]:hover {
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* Ensure thank you message can contain absolutely positioned confetti */
       #thank-you-section {
         position: relative;
         overflow: hidden;
       }
+      /* Dynamic Island Header Styles */
+      header#header {
+        background-color: rgba(17, 24, 39, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+      }
+      /* Footer link underline animation */
+      footer nav a {
+        position: relative;
+        text-decoration: none;
+        display: inline-block;
+        transition: transform 0.3s ease-in-out;
+      }
+      footer nav a:hover {
+        transform: translateY(-2px);
+      }
+      footer nav a::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        bottom: -3px;
+        left: 0;
+        background-color: #60a5fa; /* blue-400 */
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-out;
+      }
+      footer nav a:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
-    <header id="header" class="fixed w-full z-20 top-0 left-0 transition-all duration-300 bg-gray-900 text-white">
-        <nav class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="index.html#home" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <header id="header" class="fixed z-20 top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-screen-xl rounded-3xl transition-all duration-300 bg-gray-900 text-white">
+        <nav class="w-full flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="index.html#home" class="flex items-center space-x-3 rtl:space-x-reverse transform transition-transform hover:scale-105">
                 <span class="self-center text-4xl font-semibold whitespace-nowrap">
                     <span class="text-blue-400">Global Path Trades</span>
                 </span>
@@ -33,17 +80,17 @@
             <div id="header-right-group" class="flex md:order-2 items-center">
                 <div class="hidden md:flex items-center">
                     <div id="header-partition" class="h-6 w-px bg-gray-400/50 ml-6 mr-6 transition-colors duration-300"></div>
-                    <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-blue-300 transition-colors duration-300 text-2xl">
+                    <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-blue-300 transition-all duration-300 text-2xl transform hover:scale-110">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-blue-300 transition-colors duration-300 text-2xl ml-4">
+                    <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-blue-300 transition-all duration-300 text-2xl ml-4 transform hover:scale-110">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="tel:+919579196451" aria-label="Call Us" class="hover:text-blue-300 transition-colors duration-300 text-2xl ml-4">
+                    <a href="tel:+919579196451" aria-label="Call Us" class="hover:text-blue-300 transition-all duration-300 text-2xl ml-4 transform hover:scale-110">
                         <i class="fas fa-phone"></i>
                     </a>
                 </div>
-                <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 transition-all duration-300" aria-controls="navbar-sticky" aria-expanded="false">
+                <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 transition-all duration-300 transform hover:scale-110" aria-controls="navbar-sticky" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
@@ -52,21 +99,21 @@
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                 <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg bg-gray-900 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
-                    <li><a href="index.html#home" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl">Home</a></li>
-                    <li><a href="index.html#about" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl">About Us</a></li>
-                    <li><a href="index.html#products" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl">Products</a></li>
-                    <li><a href="index.html#services" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl">Services</a></li>
-                    <li><a href="index.html#contact" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl">Contact</a></li>
+                    <li><a href="index.html#home" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl transition-all duration-300 transform md:hover:-translate-y-1">Home</a></li>
+                    <li><a href="index.html#about" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl transition-all duration-300 transform md:hover:-translate-y-1">About Us</a></li>
+                    <li><a href="index.html#products" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl transition-all duration-300 transform md:hover:-translate-y-1">Products</a></li>
+                    <li><a href="index.html#services" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl transition-all duration-300 transform md:hover:-translate-y-1">Services</a></li>
+                    <li><a href="index.html#contact" class="block py-2 px-3 rounded hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-300 md:p-0 md:text-2xl transition-all duration-300 transform md:hover:-translate-y-1">Contact</a></li>
                     <!-- Social Icons for Mobile Menu -->
                     <li class="pt-4 mt-4 border-t border-gray-600 md:hidden">
                         <div class="flex justify-center space-x-6">
-                            <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-blue-300 transition-colors text-2xl">
+                            <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-blue-300 transition-all duration-300 text-2xl transform hover:scale-110">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-blue-300 transition-colors text-2xl">
+                            <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-blue-300 transition-all duration-300 text-2xl transform hover:scale-110">
                                 <i class="fab fa-linkedin"></i>
                             </a>
-                            <a href="tel:+919579196451" aria-label="Call Us" class="hover:text-blue-300 transition-colors text-2xl">
+                            <a href="tel:+919579196451" aria-label="Call Us" class="hover:text-blue-300 transition-all duration-300 text-2xl transform hover:scale-110">
                                 <i class="fas fa-phone"></i>
                             </a>
                         </div>
@@ -87,21 +134,22 @@
 
                 <div class="max-w-4xl mx-auto">
                     <div id="form-container" class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
-                        <form id="trade-form" action="https://formspree.io/f/xqkrpgyp" method="POST" novalidate>
+                        <!-- NOTE: This Formspree endpoint has been updated. The first submission will require confirmation from the email inbox of 'globalpathtrades@gmail.com' to activate the form. -->
+                        <form id="trade-form" action="https://formspree.io/f/mvojoqly" method="POST" novalidate>
                             <input type="hidden" name="_subject" value="New Trade Inquiry Received">
                             <fieldset class="mb-8">
-                                <legend class="form-label text-xl font-semibold mb-4">Trade Details</legend>
+                                <legend class="block text-gray-700 font-medium mb-4 text-xl font-semibold">Trade Details</legend>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label class="form-label">Category</label>
+                                        <label class="block text-gray-700 font-medium mb-2">Category</label>
                                         <div class="flex items-center space-x-6">
                                             <label class="flex items-center"><input type="radio" name="category" value="Importer" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" checked>&nbsp;<span class="ml-2 text-gray-700">Importer</span></label>
                                             <label class="flex items-center"><input type="radio" name="category" value="Exporter" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">&nbsp;<span class="ml-2 text-gray-700">Exporter</span></label>
                                         </div>
                                     </div>
                                     <div>
-                                        <label for="commodity-type" class="form-label">Type of Commodity</label>
-                                        <select id="commodity-type" name="commodity-type" class="form-input" required>
+                                        <label for="commodity-type" class="block text-gray-700 font-medium mb-2">Type of Commodity</label>
+                                        <select id="commodity-type" name="commodity-type" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required>
                                             <option value="">Select a type</option>
                                             <option value="Agriculture">Agriculture</option>
                                             <option value="Spices">Spices</option>
@@ -112,51 +160,51 @@
                                         </select>
                                     </div>
                                     <div class="md:col-span-2">
-                                        <label for="specific-product" class="form-label">Specific Product</label>
-                                        <input type="text" id="specific-product" name="specific-product" class="form-input" placeholder="e.g., Basmati Rice, Turmeric Powder" required>
+                                        <label for="specific-product" class="block text-gray-700 font-medium mb-2">Specific Product</label>
+                                        <input type="text" id="specific-product" name="specific-product" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" placeholder="e.g., Basmati Rice, Turmeric Powder" required>
                                     </div>
                                     <div>
-                                        <label for="quantity" class="form-label">Quantity</label>
-                                        <select id="quantity" name="quantity" class="form-input" required>
+                                        <label for="quantity" class="block text-gray-700 font-medium mb-2">Quantity</label>
+                                        <select id="quantity" name="quantity" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required>
                                             <option value="">Select quantity</option>
                                             <option value="FCL">Full Container Loaded (FCL)</option>
                                             <option value="HCL">Half Container Loaded (HCL)</option>
                                         </select>
                                     </div>
                                     <div id="fcl-number-container" class="hidden">
-                                        <label for="fcl-number" class="form-label">Number of FCL</label>
-                                        <input type="number" id="fcl-number" name="fcl-number" min="1" class="form-input" placeholder="e.g., 3">
+                                        <label for="fcl-number" class="block text-gray-700 font-medium mb-2">Number of FCL</label>
+                                        <input type="number" id="fcl-number" name="fcl-number" min="1" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" placeholder="e.g., 3">
                                     </div>
                                 </div>
                             </fieldset>
 
                              <fieldset class="mb-6">
-                                <legend class="form-label text-xl font-semibold mb-4">Contact & Location</legend>
+                                <legend class="block text-gray-700 font-medium mb-4 text-xl font-semibold">Contact & Location</legend>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label for="full-name" class="form-label">Full Name</label>
-                                        <input type="text" id="full-name" name="full-name" class="form-input" required>
+                                        <label for="full-name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                        <input type="text" id="full-name" name="full-name" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required>
                                     </div>
                                      <div>
-                                        <label for="contact-number" class="form-label">Contact Number</label>
+                                        <label for="contact-number" class="block text-gray-700 font-medium mb-2">Contact Number</label>
                                         <div class="relative">
                                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                                 <span class="text-gray-500">+91</span>
                                             </div>
-                                            <input type="tel" id="contact-number" name="contact-number" class="form-input pl-12" pattern="[6-9]{1}[0-9]{9}" title="Please enter a valid 10-digit Indian mobile number" required>
+                                            <input type="tel" id="contact-number" name="contact-number" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pl-12 hover:border-blue-400 form-input" pattern="[6-9]{1}[0-9]{9}" title="Please enter a valid 10-digit Indian mobile number" required>
                                         </div>
                                     </div>
                                     <div class="md:col-span-2">
-                                        <label for="email" class="form-label">Email ID</label>
-                                        <input type="email" id="email" name="email" class="form-input" required>
+                                        <label for="email" class="block text-gray-700 font-medium mb-2">Email ID</label>
+                                        <input type="email" id="email" name="email" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required>
                                     </div>
                                      <div class="md:col-span-2">
-                                        <label for="address" class="form-label">Address</label>
-                                        <textarea id="address" name="address" rows="3" class="form-input" required></textarea>
+                                        <label for="address" class="block text-gray-700 font-medium mb-2">Address</label>
+                                        <textarea id="address" name="address" rows="3" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required></textarea>
                                     </div>
                                     <div class="md:col-span-2">
-                                        <label for="country" class="form-label">Country</label>
-                                        <select id="country" name="country" class="form-input" required>
+                                        <label for="country" class="block text-gray-700 font-medium mb-2">Country</label>
+                                        <select id="country" name="country" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required>
                                             <option value="">Select Country</option>
                                             <option value="AF">Afghanistan</option>
                                             <option value="AL">Albania</option>
@@ -358,17 +406,17 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label for="postal-code" class="form-label">Postal / Zip Code</label>
-                                        <input type="text" id="postal-code" name="postal-code" class="form-input" required>
+                                        <label for="postal-code" class="block text-gray-700 font-medium mb-2">Postal / Zip Code</label>
+                                        <input type="text" id="postal-code" name="postal-code" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required>
                                         <div id="postal-code-status" class="text-sm mt-1 h-4"></div>
                                     </div>
                                     <div>
-                                        <label for="city" class="form-label">City</label>
-                                        <input type="text" id="city" name="city" class="form-input" required>
+                                        <label for="city" class="block text-gray-700 font-medium mb-2">City</label>
+                                        <input type="text" id="city" name="city" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required>
                                     </div>
                                     <div class="md:col-span-2">
-                                        <label for="state" class="form-label">State / Province</label>
-                                        <input type="text" id="state" name="state" class="form-input" required>
+                                        <label for="state" class="block text-gray-700 font-medium mb-2">State / Province</label>
+                                        <input type="text" id="state" name="state" class="w-full px-4 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 form-input" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -392,37 +440,32 @@
     </main>
     
     <footer class="bg-gray-800 text-white">
-        <div class="container mx-auto px-6 py-12">
-            <div class="grid md:grid-cols-3 gap-8">
-                <div><h3 class="text-2xl font-bold mb-4">Global Path Trades</h3><p class="text-gray-400">Connecting India to the world with trust and efficiency. Your partner in global import-export trade.</p></div>
-                <div><h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
-                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="index.html#products" class="text-gray-400 hover:text-white transition-colors">Products</a></li>
-                        <li><a href="index.html#services" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
-                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-                    </ul>
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <!-- Left side: Brand Name and Description -->
+                <div class="text-center md:text-left">
+                    <a href="index.html#home" class="text-2xl font-bold text-white transition-all duration-300 inline-block transform hover:scale-105">Global Path Trades</a>
+                    <p class="text-white text-sm mt-1 max-w-xs">Connecting India to the world with trust and efficiency.</p>
                 </div>
-                <div><h4 class="text-lg font-semibold mb-4">Contact Us</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><i class="fas fa-map-marker-alt w-6"></i> Katol Road, Nagpur, India</li>
-                        <li><i class="fas fa-envelope w-6"></i> globalpathtrades@gmail.com</li>
-                        <li><i class="fas fa-phone w-6"></i> +91 9579196451</li>
+                
+                <!-- Center: Quick Links -->
+                <nav>
+                    <ul class="flex flex-wrap justify-center space-x-4 sm:space-x-6">
+                        <li><a href="index.html#home" class="text-white transition-all duration-300 font-medium">Home</a></li>
+                        <li><a href="index.html#about" class="text-white transition-all duration-300 font-medium">About</a></li>
+                        <li><a href="index.html#products" class="text-white transition-all duration-300 font-medium">Products</a></li>
+                        <li><a href="index.html#services" class="text-white transition-all duration-300 font-medium">Services</a></li>
+                        <li><a href="index.html#contact" class="text-white transition-all duration-300 font-medium">Contact</a></li>
                     </ul>
-                    <div class="mt-6 flex space-x-4">
-                        <a href="https://www.instagram.com/globalpathtrades?igsh=NWc2YnViOXVwMm42" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-instagram text-2xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/global-path-trades/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-linkedin text-2xl"></i>
-                        </a>
-                    </div>
-                </div>
+                </nav>
             </div>
         </div>
-        <div class="bg-gray-900 py-4 text-center text-gray-500 text-sm">
-            <p>&copy; 2024 Global Path Trades. All Rights Reserved. | Website designed by AI.</p>
+        
+        <!-- Bottom bar with copyright -->
+        <div class="bg-gray-900 py-4">
+            <div class="container mx-auto px-6 text-center text-sm">
+                <p class="text-white">&copy; 2024 Global Path Trades. All Rights Reserved. | Website designed by AI.</p>
+            </div>
         </div>
     </footer>
 

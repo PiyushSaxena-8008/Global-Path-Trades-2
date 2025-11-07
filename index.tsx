@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (header && heroSection) {
         const heroObserver = new IntersectionObserver(([entry]) => {
             const currentActiveLink = document.querySelector('#navbar-sticky a[aria-current="page"]');
+            const headerLinksForStyling = document.querySelectorAll('#navbar-sticky a');
+
             if (!entry.isIntersecting) {
                 // Scrolled past hero, change to opaque header
                 header.classList.add('bg-white', 'shadow-md', 'text-gray-700');
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 // Update nav links for scrolled state
-                allNavLinks.forEach(link => {
+                headerLinksForStyling.forEach(link => {
                     link.classList.remove('font-bold', 'hover:text-blue-300'); // remove transparent styles
                     
                     // Differentiate between nav links and social icons in mobile menu
@@ -118,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 // Update nav links for transparent state
-                 allNavLinks.forEach(link => {
+                 headerLinksForStyling.forEach(link => {
                     link.classList.remove('text-gray-700', 'hover:bg-gray-100', 'md:hover:bg-transparent', 'md:hover:text-blue-700', 'text-white', 'bg-blue-700', 'md:bg-transparent', 'md:text-blue-700', 'hover:text-blue-700');
                     link.classList.add('hover:text-blue-300');
                     if (link === currentActiveLink) {
@@ -133,6 +135,74 @@ document.addEventListener('DOMContentLoaded', () => {
             threshold: 0
         });
         heroObserver.observe(heroSection);
+    }
+
+    // --- Hero Slider Logic ---
+    const slides = document.querySelectorAll('.hero-slide');
+    const prevBtn = document.getElementById('prev-slide-btn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-slide-btn') as HTMLButtonElement;
+    const dotsContainer = document.getElementById('slider-dots');
+
+    if (slides.length > 0 && prevBtn && nextBtn && dotsContainer) {
+        let currentSlide = 0;
+        let slideInterval: number;
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('slider-dot');
+            dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+                resetInterval();
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.slider-dot');
+
+        const goToSlide = (slideIndex: number) => {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active-slide', index === slideIndex);
+            });
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active-dot', index === slideIndex);
+            });
+            currentSlide = slideIndex;
+        };
+
+        const nextSlide = () => {
+            const nextIndex = (currentSlide + 1) % slides.length;
+            goToSlide(nextIndex);
+        };
+
+        const prevSlide = () => {
+            const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+            goToSlide(prevIndex);
+        };
+
+        const startInterval = () => {
+            slideInterval = window.setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        };
+        
+        const resetInterval = () => {
+            clearInterval(slideInterval);
+            startInterval();
+        };
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetInterval();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetInterval();
+        });
+        
+        // Initial setup
+        goToSlide(0);
+        startInterval();
     }
 
 
@@ -189,51 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animationTargets.forEach(target => {
         animationObserver.observe(target);
-    });
-
-
-    // --- Contact Form Logic ---
-    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
-    const contactFormStatus = document.getElementById('form-status') as HTMLDivElement;
-    const contactSubmitButton = contactForm.querySelector('button[type="submit"]') as HTMLButtonElement;
-
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (!contactForm.checkValidity()) {
-            contactForm.reportValidity();
-            return;
-        }
-
-        contactSubmitButton.disabled = true;
-        contactSubmitButton.textContent = 'Sending...';
-        contactFormStatus.textContent = '';
-        contactFormStatus.className = 'mt-4 text-center';
-
-        const formData = new FormData(contactForm);
-
-        try {
-            const response = await fetch(contactForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                contactFormStatus.textContent = 'Thank you! Your message has been sent.';
-                contactFormStatus.classList.add('text-green-600');
-                contactForm.reset();
-            } else {
-                const errorData = await response.json();
-                const errorMessage = errorData.error || 'Something went wrong.';
-                throw new Error(errorMessage);
-            }
-        } catch (error: any) {
-            contactFormStatus.textContent = `Submission failed: ${error.message}`;
-            contactFormStatus.classList.add('text-red-600');
-        } finally {
-            contactSubmitButton.disabled = false;
-            contactSubmitButton.textContent = 'Send Message';
-        }
     });
 
     // --- Trade Modal & Form Logic ---
